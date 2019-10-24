@@ -1,8 +1,10 @@
 package fr.agilit.contrat.modification;
 
 import fr.agilit.contrat.entities.Abonne;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-interface AbonneRepository extends CrudRepository<Abonne, Long> {
+@RepositoryRestResource
+interface AbonneRepository extends JpaRepository<Abonne, Long> {
 
 }

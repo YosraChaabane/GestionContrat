@@ -1,31 +1,49 @@
 package fr.agilit.contrat.modification;
 
 import fr.agilit.contrat.entities.Adresse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = {"/EC", "/FACE"})
+@RequestMapping
 public class ModificationAdresseController {
-    static final String PUT_GET_ADRESSE_URL = "/adresses/{id}";
+    //static final String PUT_GET_ADRESSE_URL = "/adresses/{id}";
 
-    private AbonneRepository abonneRepository;
-    private AdresseRepository adresseRepository;
+    @Autowired
+    private ModificationAdresseService modificationAdresseService;
 
 
-    ModificationAdresseController(AbonneRepository abonneRepository) {
-        this.abonneRepository = abonneRepository;
+    public void setModificationAdresseService(ModificationAdresseService modificationAdresseService) {
+        this.modificationAdresseService = modificationAdresseService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Adresse> getAdresse(@PathVariable long id){
-        return ResponseEntity.of( adresseRepository.findById(id) );
+    @GetMapping("/api/adresses/{id}")
+    public Adresse getAdresse(@PathVariable(name="id") Long id){
+        return modificationAdresseService.getAdresse(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Adresse> changeAdresse(@RequestBody Adresse adresse){
-        adresseRepository.save(adresse);
-        return ResponseEntity.ok().build();
+    @GetMapping("/api/adresses")
+    public List<Adresse> getAdresses(){
+        List<Adresse> adresses =  modificationAdresseService.retreiveAdresses();
+         return adresses;
+    }
+
+    @PostMapping("/api/adresses")
+    public void saveAdresse(Adresse adresse){
+        modificationAdresseService.saveAdresse(adresse);
+
+    }
+
+    @PutMapping("/api/adresses/{id}")
+    public void updateAdresse(@RequestBody Adresse adresse, @PathVariable(name="id") Long id ){
+        Adresse ancienneAdresse =  modificationAdresseService.getAdresse(id);
+        if(ancienneAdresse != null) {
+            modificationAdresseService.updateAdresse(adresse);
+        }
     }
 
 }

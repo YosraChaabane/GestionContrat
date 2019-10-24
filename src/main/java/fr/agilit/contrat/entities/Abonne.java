@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +15,15 @@ import java.util.stream.Stream;
 
 @Entity
 @Getter
+@Table(name = "ABONNE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Abonne extends BaseEntityClass {
 
+    @Column(name = "NOM")
     private String nom;
 
+    @Column(name = "PRENOM")
     private String prenom;
 
     @OneToMany(cascade = CascadeType.ALL)

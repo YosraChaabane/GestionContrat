@@ -1,8 +1,14 @@
 package fr.agilit.contrat.modification;
 
 import fr.agilit.contrat.entities.Adresse;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-interface AdresseRepository extends CrudRepository<Adresse, Long> {
+import java.util.Optional;
+
+
+@RepositoryRestResource
+public interface AdresseRepository extends JpaRepository<Adresse, Long> {
 
 }

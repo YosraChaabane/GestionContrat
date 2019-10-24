@@ -4,22 +4,27 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"id"})
+@Table(name = "CONTRAT")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Contrat extends BaseEntityClass {
 
+    @Column(name = "TYPE_ADRESSE")
     private String objet;
 
-    private LocalDate dateDebut;
+    @Column(name = "DATE_DEBUT")
+    private Date dateDebut;
 
-    private LocalDate dateFin;
+    @Column(name = "DATE_FIN")
+    private Date dateFin;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    @Column(name = "DOCUMENT")
     private byte[] document;
 
     @ManyToOne(optional = false)
